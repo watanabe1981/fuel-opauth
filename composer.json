@@ -1,0 +1,16 @@
+
+{
+    "name": "watanabe1981/opauth",
+    "description" : "Fork FuelPHP opauth Package",
+    "type": "fuel-package",
+    "homepage": "https://github.com/watanabe1981/fuel-opauth",
+    "license": "MIT",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "i.watanabe.",
+            "email": "i-watanabe@developpers.info"
+        }
+    ],
+    "require-all": true
+}
