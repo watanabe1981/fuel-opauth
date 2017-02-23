@@ -20,4 +20,5 @@ Autoloader::add_classes(array(
     'Opauth\\GoogleStrategy'   => __DIR__ . '/classes/Strategy/GoogleStrategy.php',
     'Opauth\\YahoojpStrategy'  => __DIR__ . '/classes/Strategy/YahoojpStrategy.php',
     'Opauth\\HttpClient'       => __DIR__ . '/classes/Strategy/YahoojpStrategy.php',
+    'Opauth\\InstagramStrategy'=> __DIR__ . '/classes/Strategy/InstagramStrategy.php',
 ));
