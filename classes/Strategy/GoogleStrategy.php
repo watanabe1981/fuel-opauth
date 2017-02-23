@@ -25,6 +25,7 @@
  *
  * @package			Opauth.Google
  */
+namespace Opauth;
 class GoogleStrategy extends OpauthStrategy{
 
 	/**

@@ -10,6 +10,7 @@
  * @package      Opauth.FacebookStrategy
  * @license      MIT License
  */
+namespace Opauth;
 
 class FacebookStrategy extends OpauthStrategy{
 
