@@ -61,15 +61,10 @@ class FacebookStrategy extends OpauthStrategy{
                 'code'          => trim($_GET['code'])
 			);
 			$response = $this->serverGet($url, $params, null, $headers);
+			$results  = json_decode($response);
 
-			parse_str($response, $results);
-
-			if (!empty($results) && !empty($results['access_token'])){
-				$_scope = null;
-				if (!empty($this->strategy['scope'])) {
-					$_scope = $this->strategy['scope'];
-				}
-				$me = $this->me($results['access_token'], $_scope);
+			if (!empty($results) && !empty($results->access_token)){
+				$me = $this->me($results->access_token);
 
 				$this->auth = array(
 					'provider' => 'Facebook',
@@ -79,8 +74,8 @@ class FacebookStrategy extends OpauthStrategy{
 						'image' => 'https://graph.facebook.com/'.$me->id.'/picture?type=square'
 					),
 					'credentials' => array(
-						'token' => $results['access_token'],
-						'expires' => date('c', time() + $results['expires'])
+						'token' => $results->access_token,
+						'expires' => date('c', time() + $results->expires_in)
 					),
 					'raw' => $me
 				);
@@ -134,17 +129,26 @@ class FacebookStrategy extends OpauthStrategy{
 	 * @param string $access_token
 	 * @return array Parsed JSON results
 	 */
-	private function me($access_token, $scope = null){
+	private function me($access_token){
+		$fields = 'id,name,email';
+		if (isset($this->strategy['fields']))
+		{
+			$fields = $this->strategy['fields'];
+		}
+
 		$params = [
 			'access_token' => $access_token,
 			'version'      => 'v2.8',
+			'fields'       => $fields
 		];
-		if ($scope)
-		{
-			// $params['fields'] = implode(',', $scope);
-			$params['fields'] = $scope;
-		}
-		$me = $this->serverGet('https://graph.facebook.com/me', $params, null, $headers);
+
+		// if ($scope)
+		// {
+		// 	// $params['fields'] = implode(',', $scope);
+		// 	$params['fields'] = $scope;
+		// }
+
+		$me = $this->serverGet('https://graph.facebook.com/'.$params['version'].'/me', $params, null, $headers);
 		if (!empty($me)){
 			return json_decode($me);
 		}
