@@ -55,10 +55,10 @@ class FacebookStrategy extends OpauthStrategy{
 			$url = 'https://graph.facebook.com/oauth/access_token';
 			$params = array(
 				'client_id'     => $this->strategy['app_id'],
-                'client_secret' => $this->strategy['app_secret'],
-                'redirect_uri'  => $this->strategy['redirect_uri'],
-                // 'field'         => implode(',', $this->strategy['scope']),
-                'code'          => trim($_GET['code'])
+				'client_secret' => $this->strategy['app_secret'],
+				'redirect_uri'  => $this->strategy['redirect_uri'],
+				// 'field'         => implode(',', $this->strategy['scope']),
+				'code'          => trim($_GET['code'])
 			);
 			$response = $this->serverGet($url, $params, null, $headers);
 			$results  = json_decode($response);
