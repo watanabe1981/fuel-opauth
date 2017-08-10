@@ -46,8 +46,12 @@ class Opauth {
 		/**
 		 * Configurable settings
 		 */
+
+		$_host = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http';
+		$_host = \Input::Server('HTTP_X_FORWARDED_PROTO') === 'https' ? 'https' : $_host;
+
 		$this->config = array_merge(array(
-			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
+			'host' => $_host.'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
 			'callback_url' => '{path}callback',
 			'callback_transport' => 'session',
@@ -60,7 +64,6 @@ class Opauth {
 			'security_iteration' => 300,
 			'security_timeout' => '2 minutes'
 		), $config);
-
 
 		/**
 		 * Environment variables, including config
